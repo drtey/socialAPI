@@ -1,0 +1,46 @@
+{
+    "sourceFile": "app/database.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 7,
+            "patches": [
+                {
+                    "date": 1663348555475,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1663348670380,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,5 @@\n from sqlalchemy import create_engine\r\n from sqlalchemy.ext.declarative import declarative_base\r\n-from sqlalchemy.orm import sessionmaker\n\\ No newline at end of file\n+from sqlalchemy.orm import sessionmaker\r\n+\r\n+SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:trucktor3@127.0.0.1/localhost/postgres'\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663348685900,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,7 @@\n from sqlalchemy import create_engine\r\n from sqlalchemy.ext.declarative import declarative_base\r\n from sqlalchemy.orm import sessionmaker\r\n \r\n-SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:trucktor3@127.0.0.1/localhost/postgres'\n\\ No newline at end of file\n+SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:trucktor3@127.0.0.1/localhost/postgres'\r\n+\r\n+engine = create_engine(SQLALCHEMY_DATABASE_URL)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663348706008,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n from sqlalchemy import create_engine\r\n from sqlalchemy.ext.declarative import declarative_base\r\n from sqlalchemy.orm import sessionmaker\r\n \r\n-SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:trucktor3@127.0.0.1/localhost/postgres'\r\n+SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:trucktor3@localhost/postgres'\r\n \r\n engine = create_engine(SQLALCHEMY_DATABASE_URL)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663348771640,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,5 +3,7 @@\n from sqlalchemy.orm import sessionmaker\r\n \r\n SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:trucktor3@localhost/postgres'\r\n \r\n-engine = create_engine(SQLALCHEMY_DATABASE_URL)\n\\ No newline at end of file\n+engine = create_engine(SQLALCHEMY_DATABASE_URL)\r\n+\r\n+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663348790468,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,5 +5,7 @@\n SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:trucktor3@localhost/postgres'\r\n \r\n engine = create_engine(SQLALCHEMY_DATABASE_URL)\r\n \r\n-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n\\ No newline at end of file\n+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\r\n+\r\n+Base = declarative_base()\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663349461794,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n from sqlalchemy import create_engine\r\n from sqlalchemy.ext.declarative import declarative_base\r\n from sqlalchemy.orm import sessionmaker\r\n \r\n-SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:trucktor3@localhost/postgres'\r\n+SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:trucktor3@localhost:3306/postgres'\r\n \r\n engine = create_engine(SQLALCHEMY_DATABASE_URL)\r\n \r\n SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\r\n"
+                },
+                {
+                    "date": 1663349549085,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,5 +7,13 @@\n engine = create_engine(SQLALCHEMY_DATABASE_URL)\r\n \r\n SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\r\n \r\n-Base = declarative_base()\n\\ No newline at end of file\n+Base = declarative_base()\r\n+\r\n+\r\n+def get_db():\r\n+    db = SessionLocal()\r\n+    try:\r\n+        yield db\r\n+    finally:\r\n+        db.close()\r\n"
+                }
+            ],
+            "date": 1663348555475,
+            "name": "Commit-0",
+            "content": "from sqlalchemy import create_engine\r\nfrom sqlalchemy.ext.declarative import declarative_base\r\nfrom sqlalchemy.orm import sessionmaker"
+        }
+    ]
+}

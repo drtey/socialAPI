@@ -1,0 +1,82 @@
+{
+    "sourceFile": "app/models.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 16,
+            "patches": [
+                {
+                    "date": 1663348939387,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1663348945389,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,5 +3,5 @@\n \r\n class Post(Base):\r\n     __tablename__ = \"posts\"\r\n     \r\n-    id = \n\\ No newline at end of file\n+    id = Column()\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663348969895,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-from sqlalchemy import Column\r\n+from sqlalchemy import Column, Integer\r\n from .database import Base\r\n \r\n class Post(Base):\r\n     __tablename__ = \"posts\"\r\n"
+                },
+                {
+                    "date": 1663348979403,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,5 +3,5 @@\n \r\n class Post(Base):\r\n     __tablename__ = \"posts\"\r\n     \r\n-    id = Column()\n\\ No newline at end of file\n+    id = Column(Integer)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663348996975,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,5 +3,5 @@\n \r\n class Post(Base):\r\n     __tablename__ = \"posts\"\r\n     \r\n-    id = Column(Integer)\n\\ No newline at end of file\n+    id = Column(Integer, primary_key=True, nullable=False)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663349015447,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n-from sqlalchemy import Column, Integer\r\n+from sqlalchemy import Column, Integer, String\r\n from .database import Base\r\n \r\n class Post(Base):\r\n     __tablename__ = \"posts\"\r\n     \r\n\\ No newline at end of file\n-    id = Column(Integer, primary_key=True, nullable=False)\n+    id = Column(Integer, primary_key=True, nullable=False)\r\n+    title = Column(String)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663349024065,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,5 +4,5 @@\n class Post(Base):\r\n     __tablename__ = \"posts\"\r\n     \r\n     id = Column(Integer, primary_key=True, nullable=False)\r\n-    title = Column(String)\n\\ No newline at end of file\n+    title = Column(String, nullable=False)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663349041025,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,5 +4,6 @@\n class Post(Base):\r\n     __tablename__ = \"posts\"\r\n     \r\n     id = Column(Integer, primary_key=True, nullable=False)\r\n-    title = Column(String, nullable=False)\n\\ No newline at end of file\n+    title = Column(String, nullable=False)\r\n+    content = Column(String, nullable=False)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663349056713,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,10 @@\n-from sqlalchemy import Column, Integer, String\r\n+from sqlalchemy import Column, Integer, String, Boolean\r\n from .database import Base\r\n \r\n class Post(Base):\r\n     __tablename__ = \"posts\"\r\n     \r\n     id = Column(Integer, primary_key=True, nullable=False)\r\n     title = Column(String, nullable=False)\r\n\\ No newline at end of file\n-    content = Column(String, nullable=False)\n+    content = Column(String, nullable=False)\r\n+    published = Column()\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663349068101,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,5 +6,5 @@\n     \r\n     id = Column(Integer, primary_key=True, nullable=False)\r\n     title = Column(String, nullable=False)\r\n     content = Column(String, nullable=False)\r\n-    published = Column()\n\\ No newline at end of file\n+    published = Column(Boolean, default=True)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663349598241,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,5 +6,5 @@\n     \r\n     id = Column(Integer, primary_key=True, nullable=False)\r\n     title = Column(String, nullable=False)\r\n     content = Column(String, nullable=False)\r\n-    published = Column(Boolean, default=True)\n\\ No newline at end of file\n+    published = Column(Boolean, server_default='TRUE' default=True)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663349605097,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,5 +6,5 @@\n     \r\n     id = Column(Integer, primary_key=True, nullable=False)\r\n     title = Column(String, nullable=False)\r\n     content = Column(String, nullable=False)\r\n-    published = Column(Boolean, server_default='TRUE' default=True)\n\\ No newline at end of file\n+    published = Column(Boolean, server_default='TRUE', default=True)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663349765157,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,12 @@\n from sqlalchemy import Column, Integer, String, Boolean\r\n+from sqlalchemy.sql.sqltypes import TIMESTAMP\r\n from .database import Base\r\n \r\n class Post(Base):\r\n     __tablename__ = \"posts\"\r\n     \r\n     id = Column(Integer, primary_key=True, nullable=False)\r\n     title = Column(String, nullable=False)\r\n     content = Column(String, nullable=False)\r\n\\ No newline at end of file\n-    published = Column(Boolean, server_default='TRUE', default=True)\n+    published = Column(Boolean, server_default='TRUE', default=False)\r\n+    created_at = Column()\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663349807842,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,5 +8,5 @@\n     id = Column(Integer, primary_key=True, nullable=False)\r\n     title = Column(String, nullable=False)\r\n     content = Column(String, nullable=False)\r\n     published = Column(Boolean, server_default='TRUE', default=False)\r\n-    created_at = Column()\n\\ No newline at end of file\n+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text(now()))\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663349819897,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,5 +8,5 @@\n     id = Column(Integer, primary_key=True, nullable=False)\r\n     title = Column(String, nullable=False)\r\n     content = Column(String, nullable=False)\r\n     published = Column(Boolean, server_default='TRUE', default=False)\r\n-    created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text(now()))\n\\ No newline at end of file\n+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now('))\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663349836192,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,5 +8,5 @@\n     id = Column(Integer, primary_key=True, nullable=False)\r\n     title = Column(String, nullable=False)\r\n     content = Column(String, nullable=False)\r\n     published = Column(Boolean, server_default='TRUE', default=False)\r\n-    created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now('))\n\\ No newline at end of file\n+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663349890567,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,8 @@\n from sqlalchemy import Column, Integer, String, Boolean\r\n+from sqlalchemy.sql.expression import text\r\n from sqlalchemy.sql.sqltypes import TIMESTAMP\r\n+\r\n from .database import Base\r\n \r\n class Post(Base):\r\n     __tablename__ = \"posts\"\r\n"
+                }
+            ],
+            "date": 1663348939387,
+            "name": "Commit-0",
+            "content": "from sqlalchemy import Column\r\nfrom .database import Base\r\n\r\nclass Post(Base):\r\n    __tablename__ = \"posts\"\r\n    \r\n    id = "
+        }
+    ]
+}

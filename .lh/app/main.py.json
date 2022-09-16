@@ -1,0 +1,290 @@
+{
+    "sourceFile": "app/main.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 68,
+            "patches": [
+                {
+                    "date": 1663341132803,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1663341166233,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     rating: Optional[int] = None\r\n \r\n \r\n try: \r\n-    conn = psy\r\n+    conn = psycopg2.connect(host, database, user, password)\r\n \r\n my_posts = [{\"title\": \"title of post 1\", \"content\": \"content of post 1\", \"id\" : 1}, {\r\n \"title\": \"favorite foods\", \"content\": \"I like pizza\" , \"id\": 2}]\r\n \r\n"
+                },
+                {
+                    "date": 1663341229427,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     rating: Optional[int] = None\r\n \r\n \r\n try: \r\n-    conn = psycopg2.connect(host, database, user, password)\r\n+    conn = psycopg2.connect(host = 'localhost', database='postsgres', user='postsgres, password)\r\n \r\n my_posts = [{\"title\": \"title of post 1\", \"content\": \"content of post 1\", \"id\" : 1}, {\r\n \"title\": \"favorite foods\", \"content\": \"I like pizza\" , \"id\": 2}]\r\n \r\n"
+                },
+                {
+                    "date": 1663341241515,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     rating: Optional[int] = None\r\n \r\n \r\n try: \r\n-    conn = psycopg2.connect(host = 'localhost', database='postsgres', user='postsgres, password)\r\n+    conn = psycopg2.connect(host='localhost', database='postsgres', user='postsgres', password='trucktor3')\r\n \r\n my_posts = [{\"title\": \"title of post 1\", \"content\": \"content of post 1\", \"id\" : 1}, {\r\n \"title\": \"favorite foods\", \"content\": \"I like pizza\" , \"id\": 2}]\r\n \r\n"
+                },
+                {
+                    "date": 1663341279504,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,9 @@\n from fastapi.params import Body\r\n from pydantic import BaseModel\r\n from random import randrange\r\n import psycopg2\r\n+from psycopg2.extras import RealDictCursor\r\n \r\n app = FastAPI()\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1663341333639,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     rating: Optional[int] = None\r\n \r\n \r\n try: \r\n-    conn = psycopg2.connect(host='localhost', database='postsgres', user='postsgres', password='trucktor3')\r\n+    conn = psycopg2.connect(host='localhost', database='postsgres', user='postsgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n \r\n my_posts = [{\"title\": \"title of post 1\", \"content\": \"content of post 1\", \"id\" : 1}, {\r\n \"title\": \"favorite foods\", \"content\": \"I like pizza\" , \"id\": 2}]\r\n \r\n"
+                },
+                {
+                    "date": 1663341345999,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,8 +18,9 @@\n \r\n \r\n try: \r\n     conn = psycopg2.connect(host='localhost', database='postsgres', user='postsgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n+    cursor = conn.cursor()\r\n \r\n my_posts = [{\"title\": \"title of post 1\", \"content\": \"content of post 1\", \"id\" : 1}, {\r\n \"title\": \"favorite foods\", \"content\": \"I like pizza\" , \"id\": 2}]\r\n \r\n"
+                },
+                {
+                    "date": 1663341370347,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,8 +19,9 @@\n \r\n try: \r\n     conn = psycopg2.connect(host='localhost', database='postsgres', user='postsgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n     cursor = conn.cursor()\r\n+    print(\"Database connection was succesfull!\")\r\n \r\n my_posts = [{\"title\": \"title of post 1\", \"content\": \"content of post 1\", \"id\" : 1}, {\r\n \"title\": \"favorite foods\", \"content\": \"I like pizza\" , \"id\": 2}]\r\n \r\n"
+                },
+                {
+                    "date": 1663341385600,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,8 +20,10 @@\n try: \r\n     conn = psycopg2.connect(host='localhost', database='postsgres', user='postsgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n     cursor = conn.cursor()\r\n     print(\"Database connection was succesfull!\")\r\n+except Exception as error:\r\n+    print(error)\r\n \r\n my_posts = [{\"title\": \"title of post 1\", \"content\": \"content of post 1\", \"id\" : 1}, {\r\n \"title\": \"favorite foods\", \"content\": \"I like pizza\" , \"id\": 2}]\r\n \r\n"
+                },
+                {
+                    "date": 1663341426403,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,10 @@\n     conn = psycopg2.connect(host='localhost', database='postsgres', user='postsgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n     cursor = conn.cursor()\r\n     print(\"Database connection was succesfull!\")\r\n except Exception as error:\r\n-    print(error)\r\n+    print(\"Connecting from database failed\")\r\n+    print(\"Error: \", error)\r\n \r\n my_posts = [{\"title\": \"title of post 1\", \"content\": \"content of post 1\", \"id\" : 1}, {\r\n \"title\": \"favorite foods\", \"content\": \"I like pizza\" , \"id\": 2}]\r\n \r\n"
+                },
+                {
+                    "date": 1663341605853,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     rating: Optional[int] = None\r\n \r\n \r\n try: \r\n-    conn = psycopg2.connect(host='localhost', database='postsgres', user='postsgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n+    conn = psycopg2.connect(host='localhost', database='postsgres', port='3306', user='postsgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n     cursor = conn.cursor()\r\n     print(\"Database connection was succesfull!\")\r\n except Exception as error:\r\n     print(\"Connecting from database failed\")\r\n"
+                },
+                {
+                    "date": 1663341629522,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     rating: Optional[int] = None\r\n \r\n \r\n try: \r\n-    conn = psycopg2.connect(host='localhost', database='postsgres', port='3306', user='postsgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n+    conn = psycopg2.connect(host='localhost', database='postsgres', user='postsgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n     cursor = conn.cursor()\r\n     print(\"Database connection was succesfull!\")\r\n except Exception as error:\r\n     print(\"Connecting from database failed\")\r\n"
+                },
+                {
+                    "date": 1663341636587,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     rating: Optional[int] = None\r\n \r\n \r\n try: \r\n-    conn = psycopg2.connect(host='localhost', database='postsgres', user='postsgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n+    conn = psycopg2.connect(host='localhost', database='postgres', user='postsgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n     cursor = conn.cursor()\r\n     print(\"Database connection was succesfull!\")\r\n except Exception as error:\r\n     print(\"Connecting from database failed\")\r\n"
+                },
+                {
+                    "date": 1663344100741,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     rating: Optional[int] = None\r\n \r\n \r\n try: \r\n-    conn = psycopg2.connect(host='localhost', database='postgres', user='postsgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n+    conn = psycopg2.connect(host='localhost', database='postgres', user='postgres', password='trucktor3'cursor_factory=RealDictCursor)\r\n     cursor = conn.cursor()\r\n     print(\"Database connection was succesfull!\")\r\n except Exception as error:\r\n     print(\"Connecting from database failed\")\r\n"
+                },
+                {
+                    "date": 1663344109028,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     rating: Optional[int] = None\r\n \r\n \r\n try: \r\n-    conn = psycopg2.connect(host='localhost', database='postgres', user='postgres', password='trucktor3'cursor_factory=RealDictCursor)\r\n+    conn = psycopg2.connect(host='localhost', database='postgres', user='postgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n     cursor = conn.cursor()\r\n     print(\"Database connection was succesfull!\")\r\n except Exception as error:\r\n     print(\"Connecting from database failed\")\r\n"
+                },
+                {
+                    "date": 1663344134184,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     rating: Optional[int] = None\r\n \r\n \r\n try: \r\n-    conn = psycopg2.connect(host='localhost', database='postgres', user='postgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n+    conn = psycopg2.connect(host='localhost', port=3306, database='postgres', user='postgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n     cursor = conn.cursor()\r\n     print(\"Database connection was succesfull!\")\r\n except Exception as error:\r\n     print(\"Connecting from database failed\")\r\n"
+                },
+                {
+                    "date": 1663344476929,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,9 @@\n     content: str\r\n     published: bool = True\r\n     rating: Optional[int] = None\r\n \r\n+while True:\r\n \r\n try: \r\n     conn = psycopg2.connect(host='localhost', port=3306, database='postgres', user='postgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n     cursor = conn.cursor()\r\n"
+                },
+                {
+                    "date": 1663344484524,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,15 +17,15 @@\n     rating: Optional[int] = None\r\n \r\n while True:\r\n \r\n-try: \r\n-    conn = psycopg2.connect(host='localhost', port=3306, database='postgres', user='postgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n-    cursor = conn.cursor()\r\n-    print(\"Database connection was succesfull!\")\r\n-except Exception as error:\r\n-    print(\"Connecting from database failed\")\r\n-    print(\"Error: \", error)\r\n+    try: \r\n+        conn = psycopg2.connect(host='localhost', port=3306, database='postgres', user='postgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n+        cursor = conn.cursor()\r\n+        print(\"Database connection was succesfull!\")\r\n+    except Exception as error:\r\n+        print(\"Connecting from database failed\")\r\n+        print(\"Error: \", error)\r\n \r\n my_posts = [{\"title\": \"title of post 1\", \"content\": \"content of post 1\", \"id\" : 1}, {\r\n \"title\": \"favorite foods\", \"content\": \"I like pizza\" , \"id\": 2}]\r\n \r\n"
+                },
+                {
+                    "date": 1663344494598,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,8 +21,9 @@\n     try: \r\n         conn = psycopg2.connect(host='localhost', port=3306, database='postgres', user='postgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n         cursor = conn.cursor()\r\n         print(\"Database connection was succesfull!\")\r\n+        break\r\n     except Exception as error:\r\n         print(\"Connecting from database failed\")\r\n         print(\"Error: \", error)\r\n \r\n"
+                },
+                {
+                    "date": 1663344507304,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,8 +25,9 @@\n         break\r\n     except Exception as error:\r\n         print(\"Connecting from database failed\")\r\n         print(\"Error: \", error)\r\n+        time.sleep(2)\r\n \r\n my_posts = [{\"title\": \"title of post 1\", \"content\": \"content of post 1\", \"id\" : 1}, {\r\n \"title\": \"favorite foods\", \"content\": \"I like pizza\" , \"id\": 2}]\r\n \r\n"
+                },
+                {
+                    "date": 1663344513196,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,9 @@\n from pydantic import BaseModel\r\n from random import randrange\r\n import psycopg2\r\n from psycopg2.extras import RealDictCursor\r\n+import time\r\n \r\n app = FastAPI()\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1663344523465,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,10 @@\n \r\n while True:\r\n \r\n     try: \r\n-        conn = psycopg2.connect(host='localhost', port=3306, database='postgres', user='postgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n+        conn = psycopg2.connect(host='localhost', port=3306, database='postgres', \r\n+                                user='postgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n         cursor = conn.cursor()\r\n         print(\"Database connection was succesfull!\")\r\n         break\r\n     except Exception as error:\r\n"
+                },
+                {
+                    "date": 1663344528758,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n while True:\r\n \r\n     try: \r\n         conn = psycopg2.connect(host='localhost', port=3306, database='postgres', \r\n-                                user='postgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n+                                user='postgres', password='trucktr3', cursor_factory=RealDictCursor)\r\n         cursor = conn.cursor()\r\n         print(\"Database connection was succesfull!\")\r\n         break\r\n     except Exception as error:\r\n"
+                },
+                {
+                    "date": 1663344533958,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n while True:\r\n \r\n     try: \r\n         conn = psycopg2.connect(host='localhost', port=3306, database='postgres', \r\n-                                user='postgres', password='trucktr3', cursor_factory=RealDictCursor)\r\n+                                user='postgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n         cursor = conn.cursor()\r\n         print(\"Database connection was succesfull!\")\r\n         break\r\n     except Exception as error:\r\n"
+                },
+                {
+                    "date": 1663345082391,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n while True:\r\n \r\n     try: \r\n         conn = psycopg2.connect(host='localhost', port=3306, database='postgres', \r\n-                                user='postgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n+                                user='postgres', password='truckto r3', cursor_factory=RealDictCursor)\r\n         cursor = conn.cursor()\r\n         print(\"Database connection was succesfull!\")\r\n         break\r\n     except Exception as error:\r\n@@ -52,8 +52,9 @@\n \r\n \r\n @app.get(\"/posts\")\r\n async def get_posts():\r\n+    cursor.execute(\"\"\"\"SELECT * FROM POSTS\"\"\")\r\n     return {\"data\": my_posts}\r\n \r\n \r\n @app.post(\"/posts\", status_code=status.HTTP_201_CREATED)\r\n"
+                },
+                {
+                    "date": 1663345102666,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,9 +52,10 @@\n \r\n \r\n @app.get(\"/posts\")\r\n async def get_posts():\r\n-    cursor.execute(\"\"\"\"SELECT * FROM POSTS\"\"\")\r\n+    posts = cursor.execute(\"\"\"\"SELECT * FROM POSTS\"\"\")\r\n+    print(posts)\r\n     return {\"data\": my_posts}\r\n \r\n \r\n @app.post(\"/posts\", status_code=status.HTTP_201_CREATED)\r\n"
+                },
+                {
+                    "date": 1663345114561,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n while True:\r\n \r\n     try: \r\n         conn = psycopg2.connect(host='localhost', port=3306, database='postgres', \r\n-                                user='postgres', password='truckto r3', cursor_factory=RealDictCursor)\r\n+                                user='postgres', password='trucktor3', cursor_factory=RealDictCursor)\r\n         cursor = conn.cursor()\r\n         print(\"Database connection was succesfull!\")\r\n         break\r\n     except Exception as error:\r\n"
+                },
+                {
+                    "date": 1663345206038,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,9 +52,10 @@\n \r\n \r\n @app.get(\"/posts\")\r\n async def get_posts():\r\n-    posts = cursor.execute(\"\"\"\"SELECT * FROM POSTS\"\"\")\r\n+    cursor.execute(\"\"\"\"SELECT * FROM POSTS\"\"\")\r\n+    posts = cursor.fetchall()\r\n     print(posts)\r\n     return {\"data\": my_posts}\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1663345223875,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,9 +52,9 @@\n \r\n \r\n @app.get(\"/posts\")\r\n async def get_posts():\r\n-    cursor.execute(\"\"\"\"SELECT * FROM POSTS\"\"\")\r\n+    cursor.execute(\"\"\"SELECT * FROM POSTS\"\"\")\r\n     posts = cursor.fetchall()\r\n     print(posts)\r\n     return {\"data\": my_posts}\r\n \r\n"
+                },
+                {
+                    "date": 1663345303687,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,9 +52,9 @@\n \r\n \r\n @app.get(\"/posts\")\r\n async def get_posts():\r\n-    cursor.execute(\"\"\"SELECT * FROM POSTS\"\"\")\r\n+    cursor.execute(\"\"\"SELECT * FROM posts\"\"\")\r\n     posts = cursor.fetchall()\r\n     print(posts)\r\n     return {\"data\": my_posts}\r\n \r\n"
+                },
+                {
+                    "date": 1663345621929,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,12 +29,9 @@\n         print(\"Connecting from database failed\")\r\n         print(\"Error: \", error)\r\n         time.sleep(2)\r\n \r\n-my_posts = [{\"title\": \"title of post 1\", \"content\": \"content of post 1\", \"id\" : 1}, {\r\n-\"title\": \"favorite foods\", \"content\": \"I like pizza\" , \"id\": 2}]\r\n \r\n-\r\n def find_post(id):\r\n     for p in my_posts:\r\n         if p[\"id\"] == id:\r\n             return p\r\n"
+                },
+                {
+                    "date": 1663345639565,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,14 +28,8 @@\n     except Exception as error:\r\n         print(\"Connecting from database failed\")\r\n         print(\"Error: \", error)\r\n         time.sleep(2)\r\n-\r\n-\r\n-def find_post(id):\r\n-    for p in my_posts:\r\n-        if p[\"id\"] == id:\r\n-            return p\r\n  \r\n \r\n def find_index_post(id):\r\n     for i, p in enumerate(my_posts):\r\n"
+                },
+                {
+                    "date": 1663345673151,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,8 +28,17 @@\n     except Exception as error:\r\n         print(\"Connecting from database failed\")\r\n         print(\"Error: \", error)\r\n         time.sleep(2)\r\n+\r\n+my_posts = [{\"title\": \"title of post 1\", \"content\": \"content of post 1\", \"id\" : 1}, {\r\n+\"title\": \"favorite foods\", \"content\": \"I like pizza\" , \"id\": 2}]\r\n+\r\n+\r\n+def find_post(id):\r\n+    for p in my_posts:\r\n+        if p[\"id\"] == id:\r\n+            return p\r\n  \r\n \r\n def find_index_post(id):\r\n     for i, p in enumerate(my_posts):\r\n"
+                },
+                {
+                    "date": 1663345721022,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,9 +55,9 @@\n async def get_posts():\r\n     cursor.execute(\"\"\"SELECT * FROM posts\"\"\")\r\n     posts = cursor.fetchall()\r\n     print(posts)\r\n-    return {\"data\": my_posts}\r\n+    return {\"data\": posts}\r\n \r\n \r\n @app.post(\"/posts\", status_code=status.HTTP_201_CREATED)\r\n def create_post(post: Post):\r\n"
+                },
+                {
+                    "date": 1663346724504,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,13 +60,13 @@\n \r\n \r\n @app.post(\"/posts\", status_code=status.HTTP_201_CREATED)\r\n def create_post(post: Post):\r\n-    post_dict = post.dict()\r\n-    post_dict['id'] = randrange(0, 10000000)\r\n-    my_posts.append(post_dict)\r\n-    #print(post.dict())\r\n-    return {\"data\": post_dict}\r\n+    cursor.execute(\"\"\"INSERT INTO posts (title, content, published) VALUES (%s, %s, %s) \"\"\",\r\n+                   (post.content, post.title, post.published))\r\n+    posts = cursor.fetchall()\r\n+    print(posts)\r\n+    return {\"data\": posts}\r\n # title str, content str, category, Bool published\r\n \r\n \r\n @app.get(\"/posts/latest\")\r\n"
+                },
+                {
+                    "date": 1663346731526,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,9 +62,8 @@\n @app.post(\"/posts\", status_code=status.HTTP_201_CREATED)\r\n def create_post(post: Post):\r\n     cursor.execute(\"\"\"INSERT INTO posts (title, content, published) VALUES (%s, %s, %s) \"\"\",\r\n                    (post.content, post.title, post.published))\r\n-    posts = cursor.fetchall()\r\n     print(posts)\r\n     return {\"data\": posts}\r\n # title str, content str, category, Bool published\r\n \r\n"
+                },
+                {
+                    "date": 1663346760193,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,10 +62,10 @@\n @app.post(\"/posts\", status_code=status.HTTP_201_CREATED)\r\n def create_post(post: Post):\r\n     cursor.execute(\"\"\"INSERT INTO posts (title, content, published) VALUES (%s, %s, %s) \"\"\",\r\n                    (post.content, post.title, post.published))\r\n-    print(posts)\r\n-    return {\"data\": posts}\r\n+    new_post = cursor.fetchone()\r\n+    return {\"data\": new_post}\r\n # title str, content str, category, Bool published\r\n \r\n \r\n @app.get(\"/posts/latest\")\r\n"
+                },
+                {
+                    "date": 1663346853810,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,9 +60,10 @@\n \r\n \r\n @app.post(\"/posts\", status_code=status.HTTP_201_CREATED)\r\n def create_post(post: Post):\r\n-    cursor.execute(\"\"\"INSERT INTO posts (title, content, published) VALUES (%s, %s, %s) \"\"\",\r\n+    cursor.execute(\"\"\"INSERT INTO posts (title, content, published) VALUES (%s, %s, %s) RETURNING\r\n+                   * \"\"\",\r\n                    (post.content, post.title, post.published))\r\n     new_post = cursor.fetchone()\r\n     return {\"data\": new_post}\r\n # title str, content str, category, Bool published\r\n"
+                },
+                {
+                    "date": 1663347156046,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,8 +64,10 @@\n     cursor.execute(\"\"\"INSERT INTO posts (title, content, published) VALUES (%s, %s, %s) RETURNING\r\n                    * \"\"\",\r\n                    (post.content, post.title, post.published))\r\n     new_post = cursor.fetchone()\r\n+    conn.commit()\r\n+    \r\n     return {\"data\": new_post}\r\n # title str, content str, category, Bool published\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1663347286916,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,13 +78,9 @@\n \r\n \r\n @app.get(\"/posts/{id}\")\r\n def get_post(id:int, response: Response):\r\n-    post = find_post(id)\r\n-    if not post: \r\n-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,\r\n-                            detail=f\"post with id: {id} was not found\")\r\n-    return {\"post_detail\": post}\r\n+    cursor.execute(\"\"\"SELECT * FROM posts WHERE id = %s \"\"\", (id))\r\n \r\n \r\n @app.delete(\"/posts/{id}\", status_code=status.HTTP_204_NO_CONTENT)\r\n def delete_post(id: int):\r\n"
+                },
+                {
+                    "date": 1663347325259,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -77,10 +77,11 @@\n     return {\"detail\": post}\r\n \r\n \r\n @app.get(\"/posts/{id}\")\r\n-def get_post(id:int, response: Response):\r\n+def get_post(id:int):\r\n     cursor.execute(\"\"\"SELECT * FROM posts WHERE id = %s \"\"\", (id))\r\n+    \r\n \r\n \r\n @app.delete(\"/posts/{id}\", status_code=status.HTTP_204_NO_CONTENT)\r\n def delete_post(id: int):\r\n"
+                },
+                {
+                    "date": 1663347332852,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,9 +78,9 @@\n \r\n \r\n @app.get(\"/posts/{id}\")\r\n def get_post(id:int):\r\n-    cursor.execute(\"\"\"SELECT * FROM posts WHERE id = %s \"\"\", (id))\r\n+    cursor.execute(\"\"\"SELECT * FROM posts WHERE id = %s \"\"\", (str(id)))\r\n     \r\n \r\n \r\n @app.delete(\"/posts/{id}\", status_code=status.HTTP_204_NO_CONTENT)\r\n"
+                },
+                {
+                    "date": 1663347385346,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,8 +79,9 @@\n \r\n @app.get(\"/posts/{id}\")\r\n def get_post(id:int):\r\n     cursor.execute(\"\"\"SELECT * FROM posts WHERE id = %s \"\"\", (str(id)))\r\n+    post = cursor.fetchone()\r\n     \r\n \r\n \r\n @app.delete(\"/posts/{id}\", status_code=status.HTTP_204_NO_CONTENT)\r\n"
+                },
+                {
+                    "date": 1663347475283,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,9 +80,11 @@\n @app.get(\"/posts/{id}\")\r\n def get_post(id:int):\r\n     cursor.execute(\"\"\"SELECT * FROM posts WHERE id = %s \"\"\", (str(id)))\r\n     post = cursor.fetchone()\r\n-    \r\n+    if not post:\r\n+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,\r\n+                            detail=f\"post with id: {id} was not found\")\r\n \r\n \r\n @app.delete(\"/posts/{id}\", status_code=status.HTTP_204_NO_CONTENT)\r\n def delete_post(id: int):\r\n"
+                },
+                {
+                    "date": 1663347493324,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,8 +83,9 @@\n     post = cursor.fetchone()\r\n     if not post:\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,\r\n                             detail=f\"post with id: {id} was not found\")\r\n+    return {\"post_detail\": post}\r\n \r\n \r\n @app.delete(\"/posts/{id}\", status_code=status.HTTP_204_NO_CONTENT)\r\n def delete_post(id: int):\r\n"
+                },
+                {
+                    "date": 1663347654273,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -101,9 +101,10 @@\n \r\n \r\n @app.put(\"/posts/{id}\")\r\n def update_post(id: int, post: Post):\r\n-    index = find_index_post(id)\r\n+\r\n+    cursor.execute(\"\"\"UPDATE posts SET title = %s, content = %s, published = %s \"\"\")\r\n     \r\n     if index == None:\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, \r\n                             detail=f\"post with id: {id} does not exist\")\r\n"
+                },
+                {
+                    "date": 1663347679141,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -102,9 +102,10 @@\n \r\n @app.put(\"/posts/{id}\")\r\n def update_post(id: int, post: Post):\r\n \r\n-    cursor.execute(\"\"\"UPDATE posts SET title = %s, content = %s, published = %s \"\"\")\r\n+    cursor.execute(\"\"\"UPDATE posts SET title = %s, content = %s, published = %s\"\"\", \r\n+                   (post.title, post.content, post.published))\r\n     \r\n     if index == None:\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, \r\n                             detail=f\"post with id: {id} does not exist\")\r\n"
+                },
+                {
+                    "date": 1663347699865,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,8 +105,9 @@\n \r\n     cursor.execute(\"\"\"UPDATE posts SET title = %s, content = %s, published = %s\"\"\", \r\n                    (post.title, post.content, post.published))\r\n     \r\n+    updated_post = cursor.fetchone\r\n     if index == None:\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, \r\n                             detail=f\"post with id: {id} does not exist\")\r\n     \r\n"
+                },
+                {
+                    "date": 1663347711213,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,10 +105,10 @@\n \r\n     cursor.execute(\"\"\"UPDATE posts SET title = %s, content = %s, published = %s\"\"\", \r\n                    (post.title, post.content, post.published))\r\n     \r\n-    updated_post = cursor.fetchone\r\n-    if index == None:\r\n+    updated_post = cursor.fetchone()\r\n+    if updated_post == None:\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, \r\n                             detail=f\"post with id: {id} does not exist\")\r\n     \r\n     post_dict = post.dict()\r\n"
+                },
+                {
+                    "date": 1663347741103,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,12 +109,9 @@\n     updated_post = cursor.fetchone()\r\n     if updated_post == None:\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, \r\n                             detail=f\"post with id: {id} does not exist\")\r\n-    \r\n-    post_dict = post.dict()\r\n-    post_dict['id'] = id\r\n-    my_posts[index] = post_dict\r\n-    return Response(status_code=status.HTTP_204_NO_CONTENT)\r\n \r\n+    return Response(\"data\": updated_post)\r\n \r\n \r\n+\r\n"
+                },
+                {
+                    "date": 1663347750431,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -110,8 +110,8 @@\n     if updated_post == None:\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, \r\n                             detail=f\"post with id: {id} does not exist\")\r\n \r\n-    return Response(\"data\": updated_post)\r\n+    return {\"data\": updated_post}\r\n \r\n \r\n \r\n"
+                },
+                {
+                    "date": 1663347825822,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -106,8 +106,10 @@\n     cursor.execute(\"\"\"UPDATE posts SET title = %s, content = %s, published = %s\"\"\", \r\n                    (post.title, post.content, post.published))\r\n     \r\n     updated_post = cursor.fetchone()\r\n+    conn.commit()\r\n+    \r\n     if updated_post == None:\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, \r\n                             detail=f\"post with id: {id} does not exist\")\r\n \r\n"
+                },
+                {
+                    "date": 1663347911852,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -102,10 +102,10 @@\n \r\n @app.put(\"/posts/{id}\")\r\n def update_post(id: int, post: Post):\r\n \r\n-    cursor.execute(\"\"\"UPDATE posts SET title = %s, content = %s, published = %s\"\"\", \r\n-                   (post.title, post.content, post.published))\r\n+    cursor.execute(\"\"\"UPDATE posts SET title = %s, content = %s, published = %s WHERE id = %s\"\"\", \r\n+                   (post.title, post.content, post.published, str(id)))\r\n     \r\n     updated_post = cursor.fetchone()\r\n     conn.commit()\r\n     \r\n"
+                },
+                {
+                    "date": 1663347939272,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -102,9 +102,10 @@\n \r\n @app.put(\"/posts/{id}\")\r\n def update_post(id: int, post: Post):\r\n \r\n-    cursor.execute(\"\"\"UPDATE posts SET title = %s, content = %s, published = %s WHERE id = %s\"\"\", \r\n+    cursor.execute(\"\"\"UPDATE posts SET title = %s, content = %s, published = %s WHERE id = %s\r\n+    RETURNING *\"\"\", \r\n                    (post.title, post.content, post.published, str(id)))\r\n     \r\n     updated_post = cursor.fetchone()\r\n     conn.commit()\r\n"
+                },
+                {
+                    "date": 1663349118312,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,10 @@\n import psycopg2\r\n from psycopg2.extras import RealDictCursor\r\n import time\r\n \r\n+models.Base.metada.create_all(vind=engine)\r\n+\r\n app = FastAPI()\r\n \r\n \r\n class Post(BaseModel):\r\n"
+                },
+                {
+                    "date": 1663349144365,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,10 @@\n from random import randrange\r\n import psycopg2\r\n from psycopg2.extras import RealDictCursor\r\n import time\r\n+from . import models\r\n+from .database import engine\r\n \r\n models.Base.metada.create_all(vind=engine)\r\n \r\n app = FastAPI()\r\n"
+                },
+                {
+                    "date": 1663349160027,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,12 @@\n models.Base.metada.create_all(vind=engine)\r\n \r\n app = FastAPI()\r\n \r\n+def get_db()\r\n \r\n+\r\n+\r\n class Post(BaseModel):\r\n     title: str\r\n     content: str\r\n     published: bool = True\r\n"
+                },
+                {
+                    "date": 1663349195928,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,11 +14,15 @@\n \r\n app = FastAPI()\r\n \r\n def get_db()\r\n+    db = SessionLocal()\r\n+    try:\r\n+        yield db\r\n+    finally \r\n+        db.close()\r\n \r\n \r\n-\r\n class Post(BaseModel):\r\n     title: str\r\n     content: str\r\n     published: bool = True\r\n"
+                },
+                {
+                    "date": 1663349206860,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,13 +13,13 @@\n models.Base.metada.create_all(vind=engine)\r\n \r\n app = FastAPI()\r\n \r\n-def get_db()\r\n+def get_db():\r\n     db = SessionLocal()\r\n     try:\r\n         yield db\r\n-    finally \r\n+    finally:\r\n         db.close()\r\n \r\n \r\n class Post(BaseModel):\r\n"
+                },
+                {
+                    "date": 1663349267575,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,9 +43,12 @@\n \r\n my_posts = [{\"title\": \"title of post 1\", \"content\": \"content of post 1\", \"id\" : 1}, {\r\n \"title\": \"favorite foods\", \"content\": \"I like pizza\" , \"id\": 2}]\r\n \r\n+@app.get(\"/sqlalchemy\")\r\n+def test_posts(db: Session = Depends(get_db))\r\n \r\n+\r\n def find_post(id):\r\n     for p in my_posts:\r\n         if p[\"id\"] == id:\r\n             return p\r\n"
+                },
+                {
+                    "date": 1663349292680,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n import psycopg2\r\n from psycopg2.extras import RealDictCursor\r\n import time\r\n from . import models\r\n-from .database import engine\r\n+from .database import engine, SessionLocal\r\n \r\n models.Base.metada.create_all(vind=engine)\r\n \r\n app = FastAPI()\r\n"
+                },
+                {
+                    "date": 1663349307234,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,9 @@\n from random import randrange\r\n import psycopg2\r\n from psycopg2.extras import RealDictCursor\r\n import time\r\n+import sqlalchemy.orm import Session\r\n from . import models\r\n from .database import engine, SessionLocal\r\n \r\n models.Base.metada.create_all(vind=engine)\r\n"
+                },
+                {
+                    "date": 1663349321782,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,14 @@\n from typing import Optional\r\n from xml.dom import registerDOMImplementation\r\n-from fastapi import FastAPI, Response, status, HTTPException\r\n+from fastapi import FastAPI, Response, status, HTTPException, Depends\r\n from fastapi.params import Body\r\n from pydantic import BaseModel\r\n from random import randrange\r\n import psycopg2\r\n from psycopg2.extras import RealDictCursor\r\n import time\r\n-import sqlalchemy.orm import Session\r\n+from sqlalchemy.orm import Session\r\n from . import models\r\n from .database import engine, SessionLocal\r\n \r\n models.Base.metada.create_all(vind=engine)\r\n"
+                },
+                {
+                    "date": 1663349363365,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,9 +45,10 @@\n my_posts = [{\"title\": \"title of post 1\", \"content\": \"content of post 1\", \"id\" : 1}, {\r\n \"title\": \"favorite foods\", \"content\": \"I like pizza\" , \"id\": 2}]\r\n \r\n @app.get(\"/sqlalchemy\")\r\n-def test_posts(db: Session = Depends(get_db))\r\n+def test_posts(db: Session = Depends(get_db)):\r\n+    return {\"status\": \"success\"}\r\n \r\n \r\n def find_post(id):\r\n     for p in my_posts:\r\n"
+                },
+                {
+                    "date": 1663349414533,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n from sqlalchemy.orm import Session\r\n from . import models\r\n from .database import engine, SessionLocal\r\n \r\n-models.Base.metada.create_all(vind=engine)\r\n+models.Base.metadata.create_all(vind=engine)\r\n \r\n app = FastAPI()\r\n \r\n def get_db():\r\n"
+                },
+                {
+                    "date": 1663349421886,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n from sqlalchemy.orm import Session\r\n from . import models\r\n from .database import engine, SessionLocal\r\n \r\n-models.Base.metadata.create_all(vind=engine)\r\n+models.Base.metadata.create_all(bind=engine)\r\n \r\n app = FastAPI()\r\n \r\n def get_db():\r\n"
+                },
+                {
+                    "date": 1663349509508,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n from psycopg2.extras import RealDictCursor\r\n import time\r\n from sqlalchemy.orm import Session\r\n from . import models\r\n-from .database import engine, SessionLocal\r\n+from .database import engine, SessionLocal, get_db\r\n \r\n models.Base.metadata.create_all(bind=engine)\r\n \r\n app = FastAPI()\r\n"
+                },
+                {
+                    "date": 1663349518601,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n from psycopg2.extras import RealDictCursor\r\n import time\r\n from sqlalchemy.orm import Session\r\n from . import models\r\n-from .database import engine, SessionLocal, get_db\r\n+from .database import engine, get_db\r\n \r\n models.Base.metadata.create_all(bind=engine)\r\n \r\n app = FastAPI()\r\n"
+                },
+                {
+                    "date": 1663349542445,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,16 +14,8 @@\n models.Base.metadata.create_all(bind=engine)\r\n \r\n app = FastAPI()\r\n \r\n-def get_db():\r\n-    db = SessionLocal()\r\n-    try:\r\n-        yield db\r\n-    finally:\r\n-        db.close()\r\n-\r\n-\r\n class Post(BaseModel):\r\n     title: str\r\n     content: str\r\n     published: bool = True\r\n"
+                }
+            ],
+            "date": 1663341132803,
+            "name": "Commit-0",
+            "content": "from typing import Optional\r\nfrom xml.dom import registerDOMImplementation\r\nfrom fastapi import FastAPI, Response, status, HTTPException\r\nfrom fastapi.params import Body\r\nfrom pydantic import BaseModel\r\nfrom random import randrange\r\nimport psycopg2\r\n\r\napp = FastAPI()\r\n\r\n\r\nclass Post(BaseModel):\r\n    title: str\r\n    content: str\r\n    published: bool = True\r\n    rating: Optional[int] = None\r\n\r\n\r\ntry: \r\n    conn = psy\r\n\r\nmy_posts = [{\"title\": \"title of post 1\", \"content\": \"content of post 1\", \"id\" : 1}, {\r\n\"title\": \"favorite foods\", \"content\": \"I like pizza\" , \"id\": 2}]\r\n\r\n\r\ndef find_post(id):\r\n    for p in my_posts:\r\n        if p[\"id\"] == id:\r\n            return p\r\n \r\n\r\ndef find_index_post(id):\r\n    for i, p in enumerate(my_posts):\r\n        if p['id'] == id:\r\n            return i\r\n        \r\n\r\n@app.get(\"/\")\r\nasync def root():\r\n    return {\"message\": \"Python API\"}\r\n\r\n\r\n@app.get(\"/posts\")\r\nasync def get_posts():\r\n    return {\"data\": my_posts}\r\n\r\n\r\n@app.post(\"/posts\", status_code=status.HTTP_201_CREATED)\r\ndef create_post(post: Post):\r\n    post_dict = post.dict()\r\n    post_dict['id'] = randrange(0, 10000000)\r\n    my_posts.append(post_dict)\r\n    #print(post.dict())\r\n    return {\"data\": post_dict}\r\n# title str, content str, category, Bool published\r\n\r\n\r\n@app.get(\"/posts/latest\")\r\ndef get_latest_post():\r\n    post = my_posts[len(my_posts)-1]\r\n    return {\"detail\": post}\r\n\r\n\r\n@app.get(\"/posts/{id}\")\r\ndef get_post(id:int, response: Response):\r\n    post = find_post(id)\r\n    if not post: \r\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,\r\n                            detail=f\"post with id: {id} was not found\")\r\n    return {\"post_detail\": post}\r\n\r\n\r\n@app.delete(\"/posts/{id}\", status_code=status.HTTP_204_NO_CONTENT)\r\ndef delete_post(id: int):\r\n    # deleting post\r\n    index = find_index_post(id)\r\n    \r\n    if index == None:\r\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, \r\n                            detail=f\"post with id: {id} does not exist\")\r\n    \r\n    my_posts.pop(index)\r\n    return Response(status_code=status.HTTP_204_NO_CONTENT)\r\n\r\n\r\n@app.put(\"/posts/{id}\")\r\ndef update_post(id: int, post: Post):\r\n    index = find_index_post(id)\r\n    \r\n    if index == None:\r\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, \r\n                            detail=f\"post with id: {id} does not exist\")\r\n    \r\n    post_dict = post.dict()\r\n    post_dict['id'] = id\r\n    my_posts[index] = post_dict\r\n    return Response(status_code=status.HTTP_204_NO_CONTENT)\r\n\r\n\r\n\r\n"
+        }
+    ]
+}
