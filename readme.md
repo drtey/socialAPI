@@ -1,6 +1,6 @@
 # socialAPI
 
-REST API developed with [Python](https://www.python.org/) & [FastAPI](https://fastapi.tiangolo.com/)
+REST API developed with [Python](https://www.python.org/) & [FastAPI](https://fastapi.tiangolo.com/) & [PostgreSQL](https://www.postgresql.org/)
 where you can register as user, publicate posts and vote posts
 
 Model validation, login with JWT, ORM, unit testings, hashing passwords
