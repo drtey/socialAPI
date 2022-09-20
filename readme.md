@@ -1,6 +1,7 @@
 # socialAPI
 
-REST API developed with python & FastAPI where you can register as user, publicate posts and vote posts
+REST API developed with [Python](https://www.python.org/) & [FastAPI](https://fastapi.tiangolo.com/)
+where you can register as user, publicate posts and vote posts
 
 Model validation, login with JWT, ORM, unit testings, hashing passwords
 
@@ -21,7 +22,7 @@ To check the REST API Documentation
 /docs & /redoc 
 
 ## Dependencies
-
+```
 anyio==3.6.1
 bcrypt==4.0.0       
 cffi==1.15.1        
@@ -49,3 +50,4 @@ SQLAlchemy==1.4.41
 starlette==0.20.4
 typing_extensions==4.3.0
 uvicorn==0.18.3
+```
