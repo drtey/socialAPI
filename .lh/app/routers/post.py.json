@@ -1,0 +1,70 @@
+{
+    "sourceFile": "app/routers/post.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 13,
+            "patches": [
+                {
+                    "date": 1663707985678,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1663708072711,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,7 @@\n+from .. import models, schemas, utils\r\n+\r\n+\r\n #Obtener listado de posts\r\n @app.get(\"/posts\", response_model=List[schemas.Post])\r\n async def get_posts(db: Session = Depends(get_db)):\r\n     \r\n"
+                },
+                {
+                    "date": 1663708084104,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,5 @@\n+from fastapi import FastAPI, Response, status, HTTPException, Depends\r\n from .. import models, schemas, utils\r\n \r\n \r\n #Obtener listado de posts\r\n"
+                },
+                {
+                    "date": 1663708107763,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n from fastapi import FastAPI, Response, status, HTTPException, Depends\r\n+from sqlalchemy.orm import Session\r\n from .. import models, schemas, utils\r\n \r\n \r\n #Obtener listado de posts\r\n"
+                },
+                {
+                    "date": 1663708130811,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n from fastapi import FastAPI, Response, status, HTTPException, Depends\r\n from sqlalchemy.orm import Session\r\n from .. import models, schemas, utils\r\n+from ..database import get_db\r\n \r\n \r\n #Obtener listado de posts\r\n @app.get(\"/posts\", response_model=List[schemas.Post])\r\n"
+                },
+                {
+                    "date": 1663708184725,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,9 @@\n from sqlalchemy.orm import Session\r\n from .. import models, schemas, utils\r\n from ..database import get_db\r\n \r\n+router = APIRouter()\r\n \r\n #Obtener listado de posts\r\n @app.get(\"/posts\", response_model=List[schemas.Post])\r\n async def get_posts(db: Session = Depends(get_db)):\r\n"
+                },
+                {
+                    "date": 1663708192113,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n \r\n router = APIRouter()\r\n \r\n #Obtener listado de posts\r\n-@app.get(\"/posts\", response_model=List[schemas.Post])\r\n+@router.get(\"/posts\", response_model=List[schemas.Post])\r\n async def get_posts(db: Session = Depends(get_db)):\r\n     \r\n     posts= db.query(models.Post).all()\r\n     return posts\r\n"
+                },
+                {
+                    "date": 1663708199057,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n \r\n \r\n \r\n #Ruta obtener post por ID\r\n-@app.get(\"/posts/{id}\", response_model=List[schemas.Post])\r\n+@router.get(\"/posts/{id}\", response_model=List[schemas.Post])\r\n def get_post(id:int, db: Session = Depends(get_db)):\r\n     \r\n     post = db.query(models.Post).filter(models.Post.id == id).first()\r\n     \r\n@@ -27,9 +27,9 @@\n \r\n \r\n \r\n #Ruta creación de post\r\n-@app.post(\"/posts\", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)\r\n+@router.post(\"/posts\", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)\r\n def create_post(post: schemas.PostCreate, db: Session = Depends(get_db)):\r\n     \r\n     new_post = models.Post(**post.dict())\r\n     db.add(new_post)\r\n"
+                },
+                {
+                    "date": 1663708207626,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n \r\n \r\n \r\n #Ruta borrar post por ID\r\n-@app.delete(\"/posts/{id}\", status_code=status.HTTP_204_NO_CONTENT)\r\n+@router.delete(\"/posts/{id}\", status_code=status.HTTP_204_NO_CONTENT)\r\n def borrar_post(id: int, db: Session = Depends(get_db)):\r\n     \r\n     post = db.query(models.Post).filter(models.Post.id == id)\r\n     \r\n@@ -57,9 +57,9 @@\n \r\n \r\n \r\n #Ruta editar post por ID\r\n-@app.put(\"/posts/{id}\", response_model=schemas.Post)\r\n+@router.put(\"/posts/{id}\", response_model=schemas.Post)\r\n def editar_post(id: int, editado_post: schemas.Post, db: Session = Depends(get_db)):\r\n \r\n     post_query = db.query(models.Post).filter(models.Post.id == id)\r\n     \r\n"
+                },
+                {
+                    "date": 1663708273533,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n from fastapi import FastAPI, Response, status, HTTPException, Depends\r\n from sqlalchemy.orm import Session\r\n+from typing import List\r\n from .. import models, schemas, utils\r\n from ..database import get_db\r\n \r\n router = APIRouter()\r\n"
+                },
+                {
+                    "date": 1663708956827,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-from fastapi import FastAPI, Response, status, HTTPException, Depends\r\n+from fastapi import FastAPI, Response, status, HTTPException, Depends, APIRouter\r\n from sqlalchemy.orm import Session\r\n from typing import List\r\n from .. import models, schemas, utils\r\n from ..database import get_db\r\n"
+                },
+                {
+                    "date": 1663709403683,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,11 @@\n from typing import List\r\n from .. import models, schemas, utils\r\n from ..database import get_db\r\n \r\n-router = APIRouter()\r\n+router = APIRouter(\r\n+    prefix=\"/posts\"\r\n+)\r\n \r\n #Obtener listado de posts\r\n @router.get(\"/posts\", response_model=List[schemas.Post])\r\n async def get_posts(db: Session = Depends(get_db)):\r\n"
+                },
+                {
+                    "date": 1663709442092,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,18 +8,18 @@\n     prefix=\"/posts\"\r\n )\r\n \r\n #Obtener listado de posts\r\n-@router.get(\"/posts\", response_model=List[schemas.Post])\r\n+@router.get(\"/\", response_model=List[schemas.Post])\r\n async def get_posts(db: Session = Depends(get_db)):\r\n     \r\n     posts= db.query(models.Post).all()\r\n     return posts\r\n \r\n \r\n \r\n #Ruta obtener post por ID\r\n-@router.get(\"/posts/{id}\", response_model=List[schemas.Post])\r\n+@router.get(\"/{id}\", response_model=List[schemas.Post])\r\n def get_post(id:int, db: Session = Depends(get_db)):\r\n     \r\n     post = db.query(models.Post).filter(models.Post.id == id).first()\r\n     \r\n@@ -30,9 +30,9 @@\n \r\n \r\n \r\n #Ruta creación de post\r\n-@router.post(\"/posts\", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)\r\n+@router.post(\"/\", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)\r\n def create_post(post: schemas.PostCreate, db: Session = Depends(get_db)):\r\n     \r\n     new_post = models.Post(**post.dict())\r\n     db.add(new_post)\r\n@@ -43,9 +43,9 @@\n \r\n \r\n \r\n #Ruta borrar post por ID\r\n-@router.delete(\"/posts/{id}\", status_code=status.HTTP_204_NO_CONTENT)\r\n+@router.delete(\"/{id}\", status_code=status.HTTP_204_NO_CONTENT)\r\n def borrar_post(id: int, db: Session = Depends(get_db)):\r\n     \r\n     post = db.query(models.Post).filter(models.Post.id == id)\r\n     \r\n@@ -60,9 +60,9 @@\n \r\n \r\n \r\n #Ruta editar post por ID\r\n-@router.put(\"/posts/{id}\", response_model=schemas.Post)\r\n+@router.put(\"/{id}\", response_model=schemas.Post)\r\n def editar_post(id: int, editado_post: schemas.Post, db: Session = Depends(get_db)):\r\n \r\n     post_query = db.query(models.Post).filter(models.Post.id == id)\r\n     \r\n"
+                },
+                {
+                    "date": 1663710312142,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,10 @@\n from .. import models, schemas, utils\r\n from ..database import get_db\r\n \r\n router = APIRouter(\r\n-    prefix=\"/posts\"\r\n+    prefix=\"/posts\",\r\n+    tag=['Posts']\r\n )\r\n \r\n #Obtener listado de posts\r\n @router.get(\"/\", response_model=List[schemas.Post])\r\n"
+                }
+            ],
+            "date": 1663707985678,
+            "name": "Commit-0",
+            "content": "#Obtener listado de posts\r\n@app.get(\"/posts\", response_model=List[schemas.Post])\r\nasync def get_posts(db: Session = Depends(get_db)):\r\n    \r\n    posts= db.query(models.Post).all()\r\n    return posts\r\n\r\n\r\n\r\n#Ruta obtener post por ID\r\n@app.get(\"/posts/{id}\", response_model=List[schemas.Post])\r\ndef get_post(id:int, db: Session = Depends(get_db)):\r\n    \r\n    post = db.query(models.Post).filter(models.Post.id == id).first()\r\n    \r\n    if not post:\r\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,\r\n                            detail=f\"post with id: {id} was not found\")\r\n    return post\r\n\r\n\r\n\r\n#Ruta creación de post\r\n@app.post(\"/posts\", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)\r\ndef create_post(post: schemas.PostCreate, db: Session = Depends(get_db)):\r\n    \r\n    new_post = models.Post(**post.dict())\r\n    db.add(new_post)\r\n    db.commit()\r\n    db.refresh(new_post)\r\n    \r\n    return new_post\r\n\r\n\r\n\r\n#Ruta borrar post por ID\r\n@app.delete(\"/posts/{id}\", status_code=status.HTTP_204_NO_CONTENT)\r\ndef borrar_post(id: int, db: Session = Depends(get_db)):\r\n    \r\n    post = db.query(models.Post).filter(models.Post.id == id)\r\n    \r\n    if post.first() == None:\r\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, \r\n                            detail=f\"post with id: {id} does not exist\")\r\n    \r\n    post.delete(synchronize_session=False)\r\n    db.commit()\r\n    \r\n    return Response(status_code=status.HTTP_204_NOT_CONTENT)\r\n\r\n\r\n\r\n#Ruta editar post por ID\r\n@app.put(\"/posts/{id}\", response_model=schemas.Post)\r\ndef editar_post(id: int, editado_post: schemas.Post, db: Session = Depends(get_db)):\r\n\r\n    post_query = db.query(models.Post).filter(models.Post.id == id)\r\n    \r\n    post = post_query.first()\r\n    \r\n    if post == None:\r\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, \r\n                            detail=f\"post with id: {id} does not exist\")\r\n        \r\n    post_query.update(editado_post.dict(), synchronize_session=False)\r\n    \r\n    db.commit()\r\n\r\n    return {\"data\": post_query.first()}"
+        }
+    ]
+}

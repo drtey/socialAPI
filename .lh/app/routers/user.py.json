@@ -1,0 +1,78 @@
+{
+    "sourceFile": "app/routers/user.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 15,
+            "patches": [
+                {
+                    "date": 1663708010850,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1663708031365,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,7 @@\n+\r\n+\r\n+\r\n #Ruta creación de user\r\n @app.post(\"/users\", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)\r\n def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):\r\n     \r\n"
+                },
+                {
+                    "date": 1663708061030,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n+from .. import models, schemas, utils\r\n \r\n \r\n-\r\n #Ruta creación de user\r\n @app.post(\"/users\", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)\r\n def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):\r\n     \r\n"
+                },
+                {
+                    "date": 1663708081503,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,5 @@\n+from fastapi import FastAPI, Response, status, HTTPException, Depends\r\n from .. import models, schemas, utils\r\n \r\n \r\n #Ruta creación de user\r\n"
+                },
+                {
+                    "date": 1663708108617,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n from fastapi import FastAPI, Response, status, HTTPException, Depends\r\n+from sqlalchemy.orm import Session\r\n from .. import models, schemas, utils\r\n \r\n \r\n #Ruta creación de user\r\n"
+                },
+                {
+                    "date": 1663708126924,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n from fastapi import FastAPI, Response, status, HTTPException, Depends\r\n from sqlalchemy.orm import Session\r\n from .. import models, schemas, utils\r\n+from ..database import get_db\r\n \r\n-\r\n #Ruta creación de user\r\n @app.post(\"/users\", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)\r\n def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):\r\n     \r\n"
+                },
+                {
+                    "date": 1663708139975,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,9 @@\n from sqlalchemy.orm import Session\r\n from .. import models, schemas, utils\r\n from ..database import get_db\r\n \r\n+\r\n #Ruta creación de user\r\n @app.post(\"/users\", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)\r\n def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):\r\n     \r\n"
+                },
+                {
+                    "date": 1663708147549,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-from fastapi import FastAPI, Response, status, HTTPException, Depends\r\n+from fastapi import FastAPI, Response, status, HTTPException, Depends, APIRouter\r\n from sqlalchemy.orm import Session\r\n from .. import models, schemas, utils\r\n from ..database import get_db\r\n \r\n"
+                },
+                {
+                    "date": 1663708159103,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,9 @@\n from sqlalchemy.orm import Session\r\n from .. import models, schemas, utils\r\n from ..database import get_db\r\n \r\n+router = APIRouter\r\n \r\n #Ruta creación de user\r\n @app.post(\"/users\", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)\r\n def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):\r\n"
+                },
+                {
+                    "date": 1663708171748,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,12 +2,12 @@\n from sqlalchemy.orm import Session\r\n from .. import models, schemas, utils\r\n from ..database import get_db\r\n \r\n-router = APIRouter\r\n+router = APIRouter()\r\n \r\n #Ruta creación de user\r\n-@app.post(\"/users\", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)\r\n+@router.post(\"/users\", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)\r\n def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):\r\n     \r\n     #Hash password - user.password\r\n     hashed_password = utils.hash(user.password)\r\n"
+                },
+                {
+                    "date": 1663708274376,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n from fastapi import FastAPI, Response, status, HTTPException, Depends, APIRouter\r\n from sqlalchemy.orm import Session\r\n+from typing import List\r\n from .. import models, schemas, utils\r\n from ..database import get_db\r\n \r\n router = APIRouter()\r\n@@ -21,9 +22,9 @@\n \r\n \r\n \r\n #Rute get user por id\r\n-@app.get(\"/users/{id}\", response_model=schemas.UserOut)\r\n+@router.get(\"/users/{id}\", response_model=schemas.UserOut)\r\n def get_user(id: int, db: Session = Depends(get_db)):\r\n     user = db.query(models.User).filter(models.User.id == id).first()\r\n     if not user:\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,\r\n"
+                },
+                {
+                    "date": 1663709461471,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,11 @@\n from typing import List\r\n from .. import models, schemas, utils\r\n from ..database import get_db\r\n \r\n-router = APIRouter()\r\n+router = APIRouter(\r\n+    prefix=\"/users\"\r\n+)\r\n \r\n #Ruta creación de user\r\n @router.post(\"/users\", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)\r\n def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):\r\n"
+                },
+                {
+                    "date": 1663709467441,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n     prefix=\"/users\"\r\n )\r\n \r\n #Ruta creación de user\r\n-@router.post(\"/users\", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)\r\n+@router.post(\"/\", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)\r\n def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):\r\n     \r\n     #Hash password - user.password\r\n     hashed_password = utils.hash(user.password)\r\n@@ -24,9 +24,9 @@\n \r\n \r\n \r\n #Rute get user por id\r\n-@router.get(\"/users/{id}\", response_model=schemas.UserOut)\r\n+@router.get(\"/{id}\", response_model=schemas.UserOut)\r\n def get_user(id: int, db: Session = Depends(get_db)):\r\n     user = db.query(models.User).filter(models.User.id == id).first()\r\n     if not user:\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,\r\n"
+                },
+                {
+                    "date": 1663709477121,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n     return new_user\r\n \r\n \r\n \r\n-#Rute get user por id\r\n+#Ruta get user por id\r\n @router.get(\"/{id}\", response_model=schemas.UserOut)\r\n def get_user(id: int, db: Session = Depends(get_db)):\r\n     user = db.query(models.User).filter(models.User.id == id).first()\r\n     if not user:\r\n"
+                },
+                {
+                    "date": 1663710955274,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,9 @@\n from ..database import get_db\r\n \r\n router = APIRouter(\r\n     prefix=\"/users\"\r\n+    tags=['Users']\r\n )\r\n \r\n #Ruta creación de user\r\n @router.post(\"/\", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)\r\n"
+                },
+                {
+                    "date": 1663710981834,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,10 +4,10 @@\n from .. import models, schemas, utils\r\n from ..database import get_db\r\n \r\n router = APIRouter(\r\n-    prefix=\"/users\"\r\n-    tags=['Users']\r\n+    prefix=\"/users\",\r\n+    tag=['Users']\r\n )\r\n \r\n #Ruta creación de user\r\n @router.post(\"/\", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)\r\n"
+                }
+            ],
+            "date": 1663708010850,
+            "name": "Commit-0",
+            "content": "#Ruta creación de user\r\n@app.post(\"/users\", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)\r\ndef create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):\r\n    \r\n    #Hash password - user.password\r\n    hashed_password = utils.hash(user.password)\r\n    user.password = hashed_password \r\n    new_user = models.User(**user.dict())\r\n    db.add(new_user)\r\n    db.commit()\r\n    db.refresh(new_user)\r\n    \r\n    return new_user\r\n\r\n\r\n\r\n#Rute get user por id\r\n@app.get(\"/users/{id}\", response_model=schemas.UserOut)\r\ndef get_user(id: int, db: Session = Depends(get_db)):\r\n    user = db.query(models.User).filter(models.User.id == id).first()\r\n    if not user:\r\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,\r\n                            detail=f\"User with id: {id} does not exist\")\r\n    \r\n    return user"
+        }
+    ]
+}

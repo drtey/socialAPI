@@ -1,0 +1,118 @@
+{
+    "sourceFile": "app/routers/auth.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 25,
+            "patches": [
+                {
+                    "date": 1663713339700,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1663713357560,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,3 @@\n from fastapi import APIRouter, Depends, status, HTTPException, Response\r\n+\r\n+router = APIRouter(tags=['Authentucation'])\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663713396000,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,9 @@\n from fastapi import APIRouter, Depends, status, HTTPException, Response\r\n+from sqlalchemy.orm import Session\r\n \r\n\\ No newline at end of file\n-router = APIRouter(tags=['Authentucation'])\n+\r\n+\r\n+router = APIRouter(tags=['Authentication'])\r\n+\r\n+@router.post('/login')\r\n+def login\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663713425019,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n from fastapi import APIRouter, Depends, status, HTTPException, Response\r\n from sqlalchemy.orm import Session\r\n \r\n+from .. import database\r\n \r\n-\r\n router = APIRouter(tags=['Authentication'])\r\n \r\n @router.post('/login')\r\n\\ No newline at end of file\n-def login\n+def login(db: Session = )\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663713438608,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,5 +5,5 @@\n \r\n router = APIRouter(tags=['Authentication'])\r\n \r\n @router.post('/login')\r\n-def login(db: Session = )\n\\ No newline at end of file\n+def login(db: Session = Depends(database.get_db))\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663713493431,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n from fastapi import APIRouter, Depends, status, HTTPException, Response\r\n from sqlalchemy.orm import Session\r\n \r\n-from .. import database\r\n+from .. import database, schemas\r\n \r\n router = APIRouter(tags=['Authentication'])\r\n \r\n @router.post('/login')\r\n"
+                },
+                {
+                    "date": 1663713514913,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,5 +5,5 @@\n \r\n router = APIRouter(tags=['Authentication'])\r\n \r\n @router.post('/login')\r\n-def login(db: Session = Depends(database.get_db))\n\\ No newline at end of file\n+def login(user_credentials: scheams.UserLogin, db: Session = Depends(database.get_db))\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663713549641,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,5 +5,7 @@\n \r\n router = APIRouter(tags=['Authentication'])\r\n \r\n @router.post('/login')\r\n-def login(user_credentials: scheams.UserLogin, db: Session = Depends(database.get_db))\n\\ No newline at end of file\n+def login(user_credentials: schemas.UserLogin, db: Session = Depends(database.get_db)):\r\n+    \r\n+    db.query(models.User).fitler(models.User.email == user_credentials.email).first()\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663713556403,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n from fastapi import APIRouter, Depends, status, HTTPException, Response\r\n from sqlalchemy.orm import Session\r\n \r\n-from .. import database, schemas\r\n+from .. import database, schemas, models\r\n \r\n router = APIRouter(tags=['Authentication'])\r\n \r\n @router.post('/login')\r\n"
+                },
+                {
+                    "date": 1663713562298,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,5 +7,5 @@\n \r\n @router.post('/login')\r\n def login(user_credentials: schemas.UserLogin, db: Session = Depends(database.get_db)):\r\n     \r\n-    db.query(models.User).fitler(models.User.email == user_credentials.email).first()\n\\ No newline at end of file\n+    user = db.query(models.User).fitler(models.User.email == user_credentials.email).first()\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663713592101,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,5 +7,8 @@\n \r\n @router.post('/login')\r\n def login(user_credentials: schemas.UserLogin, db: Session = Depends(database.get_db)):\r\n     \r\n-    user = db.query(models.User).fitler(models.User.email == user_credentials.email).first()\n\\ No newline at end of file\n+    user = db.query(models.User).fitler(models.User.email == user_credentials.email).first()\r\n+    \r\n+    if not user:\r\n+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Invalidad Credentials\")\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663713599157,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,5 +10,5 @@\n     \r\n     user = db.query(models.User).fitler(models.User.email == user_credentials.email).first()\r\n     \r\n     if not user:\r\n-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Invalidad Credentials\")\n\\ No newline at end of file\n+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Invalid Credentials\")\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663713690069,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,5 +10,6 @@\n     \r\n     user = db.query(models.User).fitler(models.User.email == user_credentials.email).first()\r\n     \r\n     if not user:\r\n-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Invalid Credentials\")\n\\ No newline at end of file\n+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Invalid Credentials\")\r\n+    \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663713703570,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n from fastapi import APIRouter, Depends, status, HTTPException, Response\r\n from sqlalchemy.orm import Session\r\n \r\n-from .. import database, schemas, models\r\n+from .. import database, schemas, models, utils\r\n \r\n router = APIRouter(tags=['Authentication'])\r\n \r\n @router.post('/login')\r\n@@ -11,5 +11,7 @@\n     user = db.query(models.User).fitler(models.User.email == user_credentials.email).first()\r\n     \r\n     if not user:\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Invalid Credentials\")\r\n+    \r\n+    utils.verify()\r\n     \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663713718419,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,6 +12,6 @@\n     \r\n     if not user:\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Invalid Credentials\")\r\n     \r\n-    utils.verify()\r\n+    utils.verify(user_credentials.password, user.password)\r\n     \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663713766791,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,6 +12,6 @@\n     \r\n     if not user:\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Invalid Credentials\")\r\n     \r\n-    utils.verify(user_credentials.password, user.password)\r\n-    \n\\ No newline at end of file\n+    if not utils.verify(user_credentials.password, user.password):\r\n+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Invalid credentials\")\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663713850356,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,5 +13,8 @@\n     if not user:\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Invalid Credentials\")\r\n     \r\n     if not utils.verify(user_credentials.password, user.password):\r\n-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Invalid credentials\")\n\\ No newline at end of file\n+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Invalid credentials\")\r\n+    \r\n+    #create token and return it\r\n+    return \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663714701694,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n from fastapi import APIRouter, Depends, status, HTTPException, Response\r\n from sqlalchemy.orm import Session\r\n \r\n-from .. import database, schemas, models, utils\r\n+from .. import database, schemas, models, utils, oauth2\r\n \r\n router = APIRouter(tags=['Authentication'])\r\n \r\n @router.post('/login')\r\n"
+                },
+                {
+                    "date": 1663714730298,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,5 @@\n+from os import access\r\n from fastapi import APIRouter, Depends, status, HTTPException, Response\r\n from sqlalchemy.orm import Session\r\n \r\n from .. import database, schemas, models, utils, oauth2\r\n@@ -16,5 +17,8 @@\n     if not utils.verify(user_credentials.password, user.password):\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Invalid credentials\")\r\n     \r\n     #create token and return it\r\n+    \r\n+    access_token = oauth2.create_access_token(data = {\"user_id\"})\r\n+    \r\n     return \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663714755495,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,7 +18,7 @@\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Invalid credentials\")\r\n     \r\n     #create token and return it\r\n     \r\n-    access_token = oauth2.create_access_token(data = {\"user_id\"})\r\n+    access_token = oauth2.create_access_token(data = {\"user_id\": user.id})\r\n     \r\n     return \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663714778590,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,5 +20,5 @@\n     #create token and return it\r\n     \r\n     access_token = oauth2.create_access_token(data = {\"user_id\": user.id})\r\n     \r\n-    return \n\\ No newline at end of file\n+    return {\"access_toke\" = access_token, \"toke_type\": \"beaerer\"}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663714786118,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,5 +20,5 @@\n     #create token and return it\r\n     \r\n     access_token = oauth2.create_access_token(data = {\"user_id\": user.id})\r\n     \r\n-    return {\"access_toke\" = access_token, \"toke_type\": \"beaerer\"}\n\\ No newline at end of file\n+    return {\"access_toke\": access_token, \"toke_type\": \"beaerer\"}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663714871041,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n \r\n @router.post('/login')\r\n def login(user_credentials: schemas.UserLogin, db: Session = Depends(database.get_db)):\r\n     \r\n-    user = db.query(models.User).fitler(models.User.email == user_credentials.email).first()\r\n+    user = db.query(models.User).filter(models.User.email == user_credentials.email).first()\r\n     \r\n     if not user:\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Invalid Credentials\")\r\n     \r\n"
+                },
+                {
+                    "date": 1663715032955,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n from os import access\r\n from fastapi import APIRouter, Depends, status, HTTPException, Response\r\n+from fastapi.security.oauth2 import OAuth2PasswordRequestForm\r\n from sqlalchemy.orm import Session\r\n \r\n from .. import database, schemas, models, utils, oauth2\r\n \r\n"
+                },
+                {
+                    "date": 1663715062622,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n \r\n router = APIRouter(tags=['Authentication'])\r\n \r\n @router.post('/login')\r\n-def login(user_credentials: schemas.UserLogin, db: Session = Depends(database.get_db)):\r\n+def login(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):\r\n     \r\n     user = db.query(models.User).filter(models.User.email == user_credentials.email).first()\r\n     \r\n     if not user:\r\n"
+                },
+                {
+                    "date": 1663715118845,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \r\n @router.post('/login')\r\n def login(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):\r\n     \r\n-    user = db.query(models.User).filter(models.User.email == user_credentials.email).first()\r\n+    user = db.query(models.User).filter(models.User.email == user_credentials.username).first()\r\n     \r\n     if not user:\r\n         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Invalid Credentials\")\r\n     \r\n"
+                }
+            ],
+            "date": 1663713339700,
+            "name": "Commit-0",
+            "content": "from fastapi import APIRouter, Depends, status, HTTPException, Response\r\n"
+        }
+    ]
+}

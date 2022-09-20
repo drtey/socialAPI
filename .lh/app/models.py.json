@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 16,
+            "activePatchIndex": 26,
             "patches": [
                 {
                     "date": 1663348939387,
@@ -72,6 +72,46 @@
                 {
                     "date": 1663349890567,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,8 @@\n from sqlalchemy import Column, Integer, String, Boolean\r\n+from sqlalchemy.sql.expression import text\r\n from sqlalchemy.sql.sqltypes import TIMESTAMP\r\n+\r\n from .database import Base\r\n \r\n class Post(Base):\r\n     __tablename__ = \"posts\"\r\n"
+                },
+                {
+                    "date": 1663694484850,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,14 @@\n-from sqlalchemy import Column, Integer, String, Boolean\r\n-from sqlalchemy.sql.expression import text\r\n-from sqlalchemy.sql.sqltypes import TIMESTAMP\r\n-\r\n-from .database import Base\r\n-\r\n-class Post(Base):\r\n-    __tablename__ = \"posts\"\r\n-    \r\n-    id = Column(Integer, primary_key=True, nullable=False)\r\n-    title = Column(String, nullable=False)\r\n-    content = Column(String, nullable=False)\r\n-    published = Column(Boolean, server_default='TRUE', default=False)\r\n+from sqlalchemy import Column, Integer, String, Boolean\n+from sqlalchemy.sql.expression import text\n+from sqlalchemy.sql.sqltypes import TIMESTAMP\n+\n+from .database import Base\n+\n+class Post(Base):\n+    __tablename__ = \"posts\"\n+    \n+    id = Column(Integer, primary_key=True, nullable=False)\n+    title = Column(String, nullable=False)\n+    content = Column(String, nullable=False)\n+    published = Column(Boolean, server_default='TRUE', nullable=False)\n     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663695822090,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,5 +10,6 @@\n     id = Column(Integer, primary_key=True, nullable=False)\n     title = Column(String, nullable=False)\n     content = Column(String, nullable=False)\n     published = Column(Boolean, server_default='TRUE', nullable=False)\n-    created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))\n\\ No newline at end of file\n+    created_at = Column(TIMESTAMP(timezone=True), \n+                        nullable=False, server_default=text('now()'))\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663699851929,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,5 +11,16 @@\n     title = Column(String, nullable=False)\n     content = Column(String, nullable=False)\n     published = Column(Boolean, server_default='TRUE', nullable=False)\n     created_at = Column(TIMESTAMP(timezone=True), \n+                        nullable=False, server_default=text('now()'))\n+    \n+    \n+class User(Base):\n+    __tablename__ = \"posts\"\n+    \n+    id = Column(Integer, primary_key=True, nullable=False)\n+    title = Column(String, nullable=False)\n+    content = Column(String, nullable=False)\n+    published = Column(Boolean, server_default='TRUE', nullable=False)\n+    created_at = Column(TIMESTAMP(timezone=True), \n                         nullable=False, server_default=text('now()'))\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663700015799,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,12 +15,6 @@\n                         nullable=False, server_default=text('now()'))\n     \n     \n class User(Base):\n-    __tablename__ = \"posts\"\n-    \n-    id = Column(Integer, primary_key=True, nullable=False)\n-    title = Column(String, nullable=False)\n-    content = Column(String, nullable=False)\n-    published = Column(Boolean, server_default='TRUE', nullable=False)\n-    created_at = Column(TIMESTAMP(timezone=True), \n-                        nullable=False, server_default=text('now()'))\n\\ No newline at end of file\n+    __tablename__ = \"users\"\n+    email = Column(str, nullable=False, unique=True)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663700047091,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,5 +16,6 @@\n     \n     \n class User(Base):\n     __tablename__ = \"users\"\n-    email = Column(str, nullable=False, unique=True)\n\\ No newline at end of file\n+    email = Column(str, nullable=False, unique=True)\n+    password=Column(str, nullable=False)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663700250674,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,6 +16,8 @@\n     \n     \n class User(Base):\n     __tablename__ = \"users\"\n+    \n+    id = Column(Integer, primary_key=True, nullable=False)\n     email = Column(str, nullable=False, unique=True)\n     password=Column(str, nullable=False)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663700258092,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,5 +19,7 @@\n     __tablename__ = \"users\"\n     \n     id = Column(Integer, primary_key=True, nullable=False)\n     email = Column(str, nullable=False, unique=True)\n-    password=Column(str, nullable=False)\n\\ No newline at end of file\n+    password=Column(str, nullable=False)\n+    created_at = Column(TIMESTAMP(timezone=True), \n+                        nullable=False, server_default=text('now()'))\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663700628936,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     created_at = Column(TIMESTAMP(timezone=True), \n                         nullable=False, server_default=text('now()'))\n     \n     \n-class User(Base):\n+class Usuario(Base):\n     __tablename__ = \"users\"\n     \n     id = Column(Integer, primary_key=True, nullable=False)\n     email = Column(str, nullable=False, unique=True)\n"
+                },
+                {
+                    "date": 1663700637456,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     created_at = Column(TIMESTAMP(timezone=True), \n                         nullable=False, server_default=text('now()'))\n     \n     \n-class Usuario(Base):\n+class User(Base):\n     __tablename__ = \"users\"\n     \n     id = Column(Integer, primary_key=True, nullable=False)\n     email = Column(str, nullable=False, unique=True)\n"
+                },
+                {
+                    "date": 1663702151379,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,8 +18,8 @@\n class User(Base):\n     __tablename__ = \"users\"\n     \n     id = Column(Integer, primary_key=True, nullable=False)\n-    email = Column(str, nullable=False, unique=True)\n-    password=Column(str, nullable=False)\n+    email = Column(String, nullable=False, unique=True)\n+    password=Column(string, nullable=False)\n     created_at = Column(TIMESTAMP(timezone=True), \n                         nullable=False, server_default=text('now()'))\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1663348939387,

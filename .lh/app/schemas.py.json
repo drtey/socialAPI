@@ -1,0 +1,142 @@
+{
+    "sourceFile": "app/schemas.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 31,
+            "patches": [
+                {
+                    "date": 1663696001361,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1663696011350,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n+from pydantic import BaseModel\r\n \r\n \r\n-\r\n class Post(BaseModel):\r\n     title: str\r\n     content: str\r\n     published: bool = True\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663696392671,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,13 @@\n+from turtle import title\r\n from pydantic import BaseModel\r\n \r\n \r\n class Post(BaseModel):\r\n     title: str\r\n     content: str\r\n+    published: bool = True\r\n+    \r\n+Class CrearPost(BaseModel):\r\n+    title: str\r\n+    content: str\r\n     published: bool = True\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663696412926,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,9 @@\n     title: str\r\n     content: str\r\n     published: bool = True\r\n     \r\n-Class CrearPost(BaseModel):\r\n+    \r\n+class CrearPost(BaseModel):\r\n     title: str\r\n     content: str\r\n     published: bool = True\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663696420536,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,10 +5,9 @@\n class Post(BaseModel):\r\n     title: str\r\n     content: str\r\n     published: bool = True\r\n-    \r\n-    \r\n+       \r\n class CrearPost(BaseModel):\r\n     title: str\r\n     content: str\r\n     published: bool = True\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663696440089,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,5 +9,10 @@\n        \r\n class CrearPost(BaseModel):\r\n     title: str\r\n     content: str\r\n+    published: bool = True\r\n+    \r\n+class EditarPost(BaseModel):\r\n+    title: str\r\n+    content: str\r\n     published: bool = True\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663696446315,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,5 +14,5 @@\n     \r\n class EditarPost(BaseModel):\r\n     title: str\r\n     content: str\r\n-    published: bool = True\n\\ No newline at end of file\n+    published: bool \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663696454420,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,7 +12,5 @@\n     content: str\r\n     published: bool = True\r\n     \r\n class EditarPost(BaseModel):\r\n-    title: str\r\n-    content: str\r\n     published: bool \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663696476571,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,16 +1,9 @@\n from turtle import title\r\n from pydantic import BaseModel\r\n \r\n \r\n-class Post(BaseModel):\r\n+\r\n+class PostBase(BaseModel):\r\n     title: str\r\n     content: str\r\n     published: bool = True\r\n-       \r\n-class CrearPost(BaseModel):\r\n-    title: str\r\n-    content: str\r\n-    published: bool = True\r\n-    \r\n\\ No newline at end of file\n-class EditarPost(BaseModel):\r\n-    published: bool \n"
+                },
+                {
+                    "date": 1663696545692,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,4 +6,10 @@\n class PostBase(BaseModel):\r\n     title: str\r\n     content: str\r\n     published: bool = True\r\n+  \r\n+    \r\n+class PostCrear(BaseModel):\r\n+    pass\r\n+\r\n+\r\n"
+                },
+                {
+                    "date": 1663696566413,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,4 +12,5 @@\n class PostCrear(BaseModel):\r\n     pass\r\n \r\n \r\n+class Post(BaseModel)\r\n"
+                },
+                {
+                    "date": 1663696583380,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,5 +12,7 @@\n class PostCrear(BaseModel):\r\n     pass\r\n \r\n \r\n-class Post(BaseModel)\r\n+class Post(BaseModel):\r\n+    title: str\r\n+    content: str\r\n"
+                },
+                {
+                    "date": 1663696618049,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,4 +15,5 @@\n \r\n class Post(BaseModel):\r\n     title: str\r\n     content: str\r\n+    published: bool\r\n"
+                },
+                {
+                    "date": 1663696890033,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,4 +16,6 @@\n class Post(BaseModel):\r\n     title: str\r\n     content: str\r\n     published: bool\r\n+    class Config:\r\n+        orm_mode = Ture\r\n"
+                },
+                {
+                    "date": 1663696920095,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,10 @@\n     pass\r\n \r\n \r\n class Post(BaseModel):\r\n+    id: id\r\n     title: str\r\n     content: str\r\n     published: bool\r\n     class Config:\r\n-        orm_mode = Ture\r\n+        orm_mode = True\r\n"
+                },
+                {
+                    "date": 1663696929340,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n     pass\r\n \r\n \r\n class Post(BaseModel):\r\n-    id: id\r\n+    id: int\r\n     title: str\r\n     content: str\r\n     published: bool\r\n     class Config:\r\n"
+                },
+                {
+                    "date": 1663697076724,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,7 +16,9 @@\n class Post(BaseModel):\r\n     id: int\r\n     title: str\r\n     content: str\r\n-    published: bool\r\n+    published: boolç\r\n+    created_at\r\n+    \r\n     class Config:\r\n         orm_mode = True\r\n"
+                },
+                {
+                    "date": 1663697105490,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n-from turtle import title\r\n from pydantic import BaseModel\r\n+from datetime import datetime\r\n \r\n \r\n \r\n class PostBase(BaseModel):\r\n@@ -16,9 +16,9 @@\n class Post(BaseModel):\r\n     id: int\r\n     title: str\r\n     content: str\r\n-    published: boolç\r\n-    created_at\r\n+    published: bool\r\n+    created_at: datetime\r\n     \r\n     class Config:\r\n         orm_mode = True\r\n"
+                },
+                {
+                    "date": 1663697190493,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n class PostCrear(BaseModel):\r\n     pass\r\n \r\n \r\n-class Post(BaseModel):\r\n+class Post(PostBase):\r\n     id: int\r\n     title: str\r\n     content: str\r\n     published: bool\r\n"
+                },
+                {
+                    "date": 1663697199003,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,11 +14,8 @@\n \r\n \r\n class Post(PostBase):\r\n     id: int\r\n-    title: str\r\n-    content: str\r\n-    published: bool\r\n     created_at: datetime\r\n     \r\n     class Config:\r\n         orm_mode = True\r\n"
+                },
+                {
+                    "date": 1663700469705,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,5 @@\n+from time import strftime\r\n from pydantic import BaseModel\r\n from datetime import datetime\r\n \r\n \r\n@@ -18,4 +19,9 @@\n     created_at: datetime\r\n     \r\n     class Config:\r\n         orm_mode = True\r\n+        \r\n+\r\n+class UserCreate(BaseModel):\r\n+    email: str\r\n+    password: str\r\n"
+                },
+                {
+                    "date": 1663700598777,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,5 @@\n-from time import strftime\r\n-from pydantic import BaseModel\r\n+from pydantic import BaseModel, \r\n from datetime import datetime\r\n \r\n \r\n \r\n@@ -22,6 +21,6 @@\n         orm_mode = True\r\n         \r\n \r\n class UserCreate(BaseModel):\r\n-    email: str\r\n+    email: EmailStr\r\n     password: str\r\n"
+                },
+                {
+                    "date": 1663702398943,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-from pydantic import BaseModel, \r\n+from pydantic import BaseModel, EmailStr\r\n from datetime import datetime\r\n \r\n \r\n \r\n@@ -23,4 +23,9 @@\n \r\n class UserCreate(BaseModel):\r\n     email: EmailStr\r\n     password: str\r\n+\r\n+class UserOut(BaseModel):\r\n+    id: int \r\n+    email: EmailStr\r\n+    \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663702406615,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,5 +27,8 @@\n \r\n class UserOut(BaseModel):\r\n     id: int \r\n     email: EmailStr\r\n+    \r\n+    class Config:\r\n+        orm_mode = True\r\n     \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663702482679,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n     content: str\r\n     published: bool = True\r\n   \r\n     \r\n-class PostCrear(BaseModel):\r\n+class PostCreate(BaseModel):\r\n     pass\r\n \r\n \r\n class Post(PostBase):\r\n"
+                },
+                {
+                    "date": 1663705135812,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n     content: str\r\n     published: bool = True\r\n   \r\n     \r\n-class PostCreate(BaseModel):\r\n+class CreatePost(BaseModel):\r\n     pass\r\n \r\n \r\n class Post(PostBase):\r\n"
+                },
+                {
+                    "date": 1663705209731,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n     content: str\r\n     published: bool = True\r\n   \r\n     \r\n-class CreatePost(BaseModel):\r\n+class PostCreate(BaseModel):\r\n     pass\r\n \r\n \r\n class Post(PostBase):\r\n"
+                },
+                {
+                    "date": 1663706213199,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n     content: str\r\n     published: bool = True\r\n   \r\n     \r\n-class PostCreate(BaseModel):\r\n+class PostCreate(PostCreate):\r\n     pass\r\n \r\n \r\n class Post(PostBase):\r\n"
+                },
+                {
+                    "date": 1663707560241,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n     content: str\r\n     published: bool = True\r\n   \r\n     \r\n-class PostCreate(PostCreate):\r\n+class PostCreate(PostBase):\r\n     pass\r\n \r\n \r\n class Post(PostBase):\r\n@@ -27,8 +27,9 @@\n \r\n class UserOut(BaseModel):\r\n     id: int \r\n     email: EmailStr\r\n+    created_at: datetime\r\n     \r\n     class Config:\r\n         orm_mode = True\r\n     \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1663712319071,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,8 +24,9 @@\n class UserCreate(BaseModel):\r\n     email: EmailStr\r\n     password: str\r\n \r\n+\r\n class UserOut(BaseModel):\r\n     id: int \r\n     email: EmailStr\r\n     created_at: datetime\r\n"
+                },
+                {
+                    "date": 1663712774277,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n     \r\n class PostCreate(PostBase):\r\n     pass\r\n \r\n-\r\n+   \r\n class Post(PostBase):\r\n     id: int\r\n     created_at: datetime\r\n     \r\n"
+                },
+                {
+                    "date": 1663713483983,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,5 +32,10 @@\n     created_at: datetime\r\n     \r\n     class Config:\r\n         orm_mode = True\r\n+        \r\n+        \r\n+class UserLogin(BaseModel):\r\n+    email: EmailStr\r\n+    password: str\r\n     \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1663696001361,
+            "name": "Commit-0",
+            "content": "\r\n\r\n\r\nclass Post(BaseModel):\r\n    title: str\r\n    content: str\r\n    published: bool = True"
+        }
+    ]
+}
