@@ -15,9 +15,7 @@ Inside the app folder
 $ uvicorn app.main:app --reload
 ```
 
-## Documentation by Swagger UI
-
-To check the REST API Documentation
+## Documentation
 
 /docs & /redoc 
 
