@@ -1,3 +1,6 @@
 venv
+virtual
 .history
 .lh
+__pycache__
+/routers/__pycache__

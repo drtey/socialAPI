@@ -1,3 +1,4 @@
+from unicodedata import name
 from fastapi import FastAPI, Response, status, HTTPException, Depends, APIRouter
 from sqlalchemy.orm import Session
 from typing import List
@@ -17,7 +18,6 @@ async def get_posts(db: Session = Depends(get_db)):
     return posts
 
 
-
 #Ruta obtener post por ID
 @router.get("/{id}", response_model=List[schemas.Post])
 def get_post(id:int, db: Session = Depends(get_db)):
@@ -30,7 +30,6 @@ def get_post(id:int, db: Session = Depends(get_db)):
     return post
 
 
-
 #Ruta creación de post
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)
 def create_post(post: schemas.PostCreate, db: Session = Depends(get_db)):
@@ -41,7 +40,6 @@ def create_post(post: schemas.PostCreate, db: Session = Depends(get_db)):
     db.refresh(new_post)
     
     return new_post
-
 
 
 #Ruta borrar post por ID
@@ -58,7 +56,6 @@ def borrar_post(id: int, db: Session = Depends(get_db)):
     db.commit()
     
     return Response(status_code=status.HTTP_204_NOT_CONTENT)
-
 
 
 #Ruta editar post por ID

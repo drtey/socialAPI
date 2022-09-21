@@ -23,3 +23,13 @@ class User(Base):
     password=Column(String, nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), 
                         nullable=False, server_default=text('now()'))
+
+
+class Votes(Base):
+    __tablename__ = "votes"
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    post = Column(Integer, nullable=False, unique=True)
+    user = Column(Integer, nullable=False, unique=True)
+    voted_at = Column(TIMESTAMP(timezone=True), 
+                        nullable=False, server_default=text('now()'))
