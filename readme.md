@@ -7,9 +7,13 @@ Model validation, login with JWT, ORM, unit testings, hashing passwords
 
 Stack: SQLAlchemy, psycopg2, OAuth2, bcrypt, pydantic, JWT, fastapi
 
-## Run project
+## Create virtual enviroment
 
-Inside the app folder 
+```
+$ py -3 -m venv venv
+```
+
+## Run project
 
 ```
 $ uvicorn app.main:app --reload

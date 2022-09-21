@@ -3,11 +3,19 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1663783030644,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1663786123345,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,12 +6,16 @@\n Model validation, login with JWT, ORM, unit testings, hashing passwords\r\n \r\n Stack: SQLAlchemy, psycopg2, OAuth2, bcrypt, pydantic, JWT, fastapi\r\n \r\n+## Create virtual enviroment\r\n+\r\n+```\r\n+$ uvicorn app.main:app --reload\r\n+```\r\n+\r\n ## Run project\r\n \r\n-Inside the app folder \r\n-\r\n ```\r\n $ uvicorn app.main:app --reload\r\n ```\r\n \r\n"
+                },
+                {
+                    "date": 1663786143020,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \r\n ## Create virtual enviroment\r\n \r\n ```\r\n-$ uvicorn app.main:app --reload\r\n+$ py -3 -m venv venv\r\n ```\r\n \r\n ## Run project\r\n \r\n"
                 }
             ],
             "date": 1663783030644,

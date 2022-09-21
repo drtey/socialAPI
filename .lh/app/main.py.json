@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 228,
+            "activePatchIndex": 229,
             "patches": [
                 {
                     "date": 1663341132803,
@@ -920,6 +920,10 @@
                 {
                     "date": 1663782028272,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,10 +20,10 @@\n \n while True:\n \n     try: \n-        conn = psycopg2.connect(host='localhost', port=3306, database='postgres', \n-                                user='postgres', password='trucktor3', cursor_factory=RealDictCursor)\n+        conn = psycopg2.connect(host='localhost', port=3306, database='api', \n+                                user='root', password='', cursor_factory=RealDictCursor)\n         cursor = conn.cursor()\n         print(\"Database connection was succesfull!\")\n         break\n     except Exception as error:\n"
+                },
+                {
+                    "date": 1663785791995,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,10 +20,10 @@\n \n while True:\n \n     try: \n-        conn = psycopg2.connect(host='localhost', port=3306, database='api', \n-                                user='root', password='', cursor_factory=RealDictCursor)\n+        conn = psycopg2.connect(host='localhost', port=3306, database='postgres', \n+                                user='postgres', password='trucktor3', cursor_factory=RealDictCursor)\n         cursor = conn.cursor()\n         print(\"Database connection was succesfull!\")\n         break\n     except Exception as error:\n"
                 }
             ],
             "date": 1663341132803,
