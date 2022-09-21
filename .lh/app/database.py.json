@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 7,
+            "activePatchIndex": 10,
             "patches": [
                 {
                     "date": 1663348555475,
@@ -36,6 +36,18 @@
                 {
                     "date": 1663349549085,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,5 +7,13 @@\n engine = create_engine(SQLALCHEMY_DATABASE_URL)\r\n \r\n SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\r\n \r\n-Base = declarative_base()\n\\ No newline at end of file\n+Base = declarative_base()\r\n+\r\n+\r\n+def get_db():\r\n+    db = SessionLocal()\r\n+    try:\r\n+        yield db\r\n+    finally:\r\n+        db.close()\r\n"
+                },
+                {
+                    "date": 1663782151253,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,19 +1,19 @@\n-from sqlalchemy import create_engine\r\n-from sqlalchemy.ext.declarative import declarative_base\r\n-from sqlalchemy.orm import sessionmaker\r\n-\r\n-SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:trucktor3@localhost:3306/postgres'\r\n-\r\n-engine = create_engine(SQLALCHEMY_DATABASE_URL)\r\n-\r\n-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\r\n-\r\n-Base = declarative_base()\r\n-\r\n-\r\n-def get_db():\r\n-    db = SessionLocal()\r\n-    try:\r\n-        yield db\r\n-    finally:\r\n-        db.close()\r\n+from sqlalchemy import create_engine\n+from sqlalchemy.ext.declarative import declarative_base\n+from sqlalchemy.orm import sessionmaker\n+\n+SQLALCHEMY_DATABASE_URL = 'mysql+pymysql://user:@localhost:3306/api'\n+\n+engine = create_engine(SQLALCHEMY_DATABASE_URL)\n+\n+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n+\n+Base = declarative_base()\n+\n+\n+def get_db():\n+    db = SessionLocal()\n+    try:\n+        yield db\n+    finally:\n+        db.close()\n"
+                },
+                {
+                    "date": 1663782398281,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n from sqlalchemy import create_engine\n from sqlalchemy.ext.declarative import declarative_base\n from sqlalchemy.orm import sessionmaker\n \n-SQLALCHEMY_DATABASE_URL = 'mysql+pymysql://user:@localhost:3306/api'\n+SQLALCHEMY_DATABASE_URL = 'mysql+pymysql://user@localhost:3306/api'\n \n engine = create_engine(SQLALCHEMY_DATABASE_URL)\n \n SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n"
+                },
+                {
+                    "date": 1663782408056,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n from sqlalchemy import create_engine\n from sqlalchemy.ext.declarative import declarative_base\n from sqlalchemy.orm import sessionmaker\n \n-SQLALCHEMY_DATABASE_URL = 'mysql+pymysql://user@localhost:3306/api'\n+SQLALCHEMY_DATABASE_URL = 'mysql+pymysql://root@localhost:3306/api'\n \n engine = create_engine(SQLALCHEMY_DATABASE_URL)\n \n SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n"
                 }
             ],
             "date": 1663348555475,
