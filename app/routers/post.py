@@ -2,7 +2,7 @@ from unicodedata import name
 from fastapi import FastAPI, Response, status, HTTPException, Depends, APIRouter
 from sqlalchemy.orm import Session
 from typing import List
-from .. import models, schemas, utils
+from .. import models, schemas, oauth2
 from ..database import get_db
 
 router = APIRouter(
@@ -12,7 +12,7 @@ router = APIRouter(
 
 #Obtener listado de posts
 @router.get("/", response_model=List[schemas.Post])
-async def get_posts(db: Session = Depends(get_db)):
+async def get_posts(db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
     
     posts= db.query(models.Post).all()
     return posts
@@ -20,7 +20,7 @@ async def get_posts(db: Session = Depends(get_db)):
 
 #Ruta obtener post por ID
 @router.get("/{id}", response_model=List[schemas.Post])
-def get_post(id:int, db: Session = Depends(get_db)):
+def get_post(id:int, db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
     
     post = db.query(models.Post).filter(models.Post.id == id).first()
     
@@ -32,7 +32,7 @@ def get_post(id:int, db: Session = Depends(get_db)):
 
 #Ruta creación de post
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)
-def create_post(post: schemas.PostCreate, db: Session = Depends(get_db)):
+def create_post(post: schemas.PostCreate, db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
     
     new_post = models.Post(**post.dict())
     db.add(new_post)
@@ -44,7 +44,7 @@ def create_post(post: schemas.PostCreate, db: Session = Depends(get_db)):
 
 #Ruta borrar post por ID
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def borrar_post(id: int, db: Session = Depends(get_db)):
+def borrar_post(id: int, db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
     
     post = db.query(models.Post).filter(models.Post.id == id)
     
@@ -60,7 +60,7 @@ def borrar_post(id: int, db: Session = Depends(get_db)):
 
 #Ruta editar post por ID
 @router.put("/{id}", response_model=schemas.Post)
-def editar_post(id: int, editado_post: schemas.Post, db: Session = Depends(get_db)):
+def editar_post(id: int, editado_post: schemas.Post, db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
 
     post_query = db.query(models.Post).filter(models.Post.id == id)
     
