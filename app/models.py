@@ -33,7 +33,10 @@ class Votes(Base):
     __tablename__ = "votes"
 
     id = Column(Integer, primary_key=True, nullable=False)
-    post = Column(Integer, nullable=False, unique=True)
-    user = Column(Integer, nullable=False, unique=True)
+    post = Column(Integer, ForeignKey("posts.id", ondelete="Cascade"), nullable=False)
     voted_at = Column(TIMESTAMP(timezone=True), 
                         nullable=False, server_default=text('now()'))
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="Cascade"), nullable=False)
+    
+    # idk 
+    # owner = relationship("User")
