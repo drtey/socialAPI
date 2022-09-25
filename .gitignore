@@ -1,6 +1,7 @@
-venv
+venv/
 virtual
 .history
 .lh
 __pycache__
-/routers/__pycache__
+app/routers/__pycache__
+.env
