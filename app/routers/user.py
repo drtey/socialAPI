@@ -1,8 +1,13 @@
-from fastapi import FastAPI, Response, status, HTTPException, Depends, APIRouter
+from fastapi import status, HTTPException, Depends, APIRouter, Request
 from sqlalchemy.orm import Session
-from typing import List
 from .. import models, schemas, utils
 from ..database import get_db
+
+#testing jinja2 templates
+from fastapi.templating import Jinja2Templates
+from pathlib import Path
+BASE_PATH = Path(__file__).parent.resolve()
+templates = Jinja2Templates(directory=f'{BASE_PATH}/../templates')
 
 router = APIRouter(
     prefix="/users",
@@ -26,11 +31,20 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 
 #Ruta get user por id
-@router.get("/{id}", response_model=schemas.UserOut)
+""" @router.get("/{id}", response_model=schemas.UserOut)
 def get_user(id: int, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.id == id).first()
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"User with id: {id} does not exist")
     
-    return user
+    return user """
+
+@router.get('/{id}', response_model=schemas.UserOut)
+def homepage(request: Request, id: int, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.id == id).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"User with id: {id} does not exist")
+
+    return templates.TemplateResponse('index.html', {'request': request, 'user': user})
